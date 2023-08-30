@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <title>OFFICE</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/editor.css" %}"/>
+</head>
+
+<body>
+<div class="form">
+    <div id="iframeEditor"></div>
+</div>
+<script type="text/javascript" src="{{ apiUrl }}"></script>
+<script type="text/javascript" language="javascript">
+    var docEditor;
+    var config;
+
+    var innerAlert = function (message, inEditor) {
+        if (console && console.log)
+            console.log(message);
+        if (inEditor && docEditor)
+            docEditor.showMessage(message);
+    };
+
+    var onAppReady = function () {
+        innerAlert("Document editor ready");
+    };
+
+    var onError = function (event) {
+        if (event)
+            innerAlert(event.data);
+    };
+
+    var connectEditor = function () {
+
+        config = {{ editorConfig | safe }}
+            config.width = "100%";
+        config.height = "100%";
+        config.events = {
+            'onAppReady': onAppReady,
+            'onError': onError,
+        };
+
+        if ((config.document.fileType === "docxf" || config.document.fileType === "oform")
+            && DocsAPI.DocEditor.version().split(".")[0] < 7) {
+            innerAlert("Please update ONLYOFFICE Docs to version 7.0 to work on fillable forms online.");
+            return;
+        }
+
+        docEditor = new DocsAPI.DocEditor("iframeEditor", config);
+
+        fixSize();
+    };
+
+    var fixSize = function () {
+        var wrapEl = document.getElementsByClassName("form");
+        if (wrapEl.length) {
+            wrapEl[0].style.height = screen.availHeight + "px";
+            window.scrollTo(0, -1);
+            wrapEl[0].style.height = window.innerHeight + "px";
+        }
+    };
+
+    if (window.addEventListener) {
+        window.addEventListener("load", connectEditor);
+        window.addEventListener("resize", fixSize);
+    } else if (window.attachEvent) {
+        window.attachEvent("onload", connectEditor);
+        window.attachEvent("onresize", fixSize);
+    }
+
+</script>
+</body>
+
+</html>
