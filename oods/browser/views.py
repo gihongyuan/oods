@@ -33,7 +33,7 @@ def get_query(params, key, default=None, allow_empty=False, error_message=None):
 
 
 def get_oods_server(request):
-    oods_host = request.META.get('REMOTE_ADDR')
+    oods_host = request.get_host().split(":")[0]
 
     # 判断是否为https请求
     is_https = request.is_secure()
