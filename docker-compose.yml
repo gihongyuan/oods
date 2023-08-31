@@ -1,0 +1,25 @@
+version: '2.0'
+services:
+  oods:
+    image: oods:1.0d
+    container_name: oods
+    restart: always
+    ports:
+      - "9080:80"
+      - "9443:443"
+#    volumes:
+#      - ./data/logs:/var/log/onlyoffice
+#      - ./data/data:/var/www/onlyoffice/Data
+#      - ./data/DocumentServer/lib:/var/lib/onlyoffice
+#      - ./oods:/app/oods
+    environment:
+      - JWT_ENABLED=false
+      - FILE_CACHE_TIME=86400
+      - HTTP_OODS_PORT=9080
+      - HTTPS_OODS_PORT=9443
+    networks:
+      - bridge_network
+
+networks:
+  bridge_network:
+    external: true
