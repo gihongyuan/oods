@@ -1,7 +1,7 @@
 version: '2.0'
 services:
   oods:
-    image: oods:1.0d
+    image: oods:VERSION
     container_name: oods
     restart: always
     ports:

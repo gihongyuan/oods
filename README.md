@@ -120,6 +120,7 @@ def get_file(request):
 ```sh
 [root@localhost ~]# cd oods # 进入工作目录
 [root@localhost oods]# sh build.sh # 构建镜像
+[root@localhost oods]# sed -i "s/VERSION/$(cat VERSION)/g" docker-compose.yml # 指定镜像版本
 [root@localhost oods]# docker-compose up -d # 启动服务
 ```
 

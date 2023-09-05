@@ -1,1 +1,3 @@
-docker build -t oods:1.0d .
+# 提取版本
+version=$(cat VERSION)
+docker build -t oods:"${version}" .
