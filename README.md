@@ -146,8 +146,6 @@ http://${host}/view/
 | fileId          | 文件编号                                   | query | true | string | /                  | 065f62f9              |
 | getFileInfo     | 获取文件信息接口路径                             | query | true | string | /api/file/info     | /                     |
 | downloadFile    | 获取文件流接口路径                              | query | true | string | /api/file/download | /                     |
-| HTTP_OODS_PORT  | oods提供http服务的端口                        | query | true | string | 80                 | 9080                  |
-| HTTPS_OODS_PORT | oods提供https服务的端口                       | query | true | string | 443                | 9443                  |
 
 ***路径示例：***
 http://192.168.1.228:9080/view/?host=http://10.100.1.250:8000&getFileInfo=/get_file_info/&downloadFile=/get_file/&fileId=ade02e5b-8d6d-4f7d-8ca7-b8a9e3d5c183
