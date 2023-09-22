@@ -10,11 +10,13 @@ import browser.constant as constant
 def index(request):
     # 提取页面参数
     params = request.GET
+    config = get_editor_config(params)
 
     # 构造编辑器参数
     context = {
+        'title': config['document']['title'] or 'OFFICE',
         'apiUrl': get_oods_server(request) + constant.DOC_SERV_API_URL,
-        'editorConfig': json.dumps(get_editor_config(params)),
+        'editorConfig': json.dumps(config),
     }
     print(f'Get editor config success: {context}')
 
