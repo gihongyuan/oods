@@ -11,10 +11,12 @@ def index(request):
     # 提取页面参数
     params = request.GET
     config = get_editor_config(params)
+    document_type = config['documentType']
 
     # 构造编辑器参数
     context = {
         'title': config['document']['title'] or 'OFFICE',
+        'icon': f'favicon-{document_type}.ico',
         'apiUrl': get_oods_server(request) + constant.DOC_SERV_API_URL,
         'editorConfig': json.dumps(config),
     }
